@@ -24,12 +24,15 @@ public class Sadd extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try { 
 			String busno=request.getParameter("busNo");
-			 String conid=request.getParameter("con");
+			String conid=request.getParameter("con");
+			
            
             Connection con = DatabaseConnection.initializeDatabase(); 
-            PreparedStatement st = con.prepareStatement("insert into busadmin values(?, ?)"); 
-            st.setString(1, busno); 
+            PreparedStatement st = con.prepareStatement("insert into busadmin values(?, ?, ?)"); 
+            st.setString(1, "z"+busno); 
             st.setString(2, conid);
+            st.setString(3, null);
+            
             
             String busstop="create table z" + busno+ " (stop varchar(100),Arrival_time time,Expected_Arrival time);";
             
@@ -38,6 +41,7 @@ public class Sadd extends HttpServlet {
             
             st.executeUpdate();
             st1.executeUpdate(busstop);
+            
             st.close();
             st1.close();
             con.close(); 
@@ -53,8 +57,8 @@ public class Sadd extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	}
+	//}
 
 }
